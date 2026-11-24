@@ -62,5 +62,3 @@ body>header{position:relative;z-index:20;gap:18px;padding-left:28px;padding-righ
 .privacy-commitment{margin-top:28px;padding:28px 32px;background:#edf2e4;border:1px solid #c7d5b6;border-radius:12px}.privacy-commitment h3{margin-top:0}.privacy-commitment p{max-width:85ch}.privacy-commitment .fine{margin-bottom:0}
 
 .theme-zoom{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}.theme-zoom:focus-visible{outline:3px solid #6a8648;outline-offset:5px}#editor-tour{scroll-margin-top:110px}
-
-#asset-loader{display:none}.assets-loading{overflow:hidden}.assets-loading #asset-loader{display:grid;position:fixed;inset:0;z-index:10000;place-items:center;background:#f5f5ed;padding:24px}.asset-loader-card{max-width:460px;text-align:center}.asset-loader-card>.heeler-wordmark{font-size:54px;color:#294d3b}.asset-loader-card h2{font-size:30px;margin:24px 0 12px}.asset-loader-card progress{display:block;width:100%;height:9px;margin:24px 0;accent-color:#526e3b}.asset-loader-card p{font-size:16px}.asset-loader-card button{font-size:14px}
