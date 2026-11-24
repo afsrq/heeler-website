@@ -1,3 +1,18 @@
+(() => {
+  const stage=document.getElementById('editor-tour'), img=document.getElementById('editor-tour-image'), toggle=document.getElementById('editor-tour-play');
+  const buttons=[...document.querySelectorAll('[data-editor-frame]')];
+  const frames=['simple','monaco','full-editor'];
+  const captions=['Simple: a focused plain-text editor for quick changes.','Editor engine: Monaco syntax highlighting, line numbers, and a minimap.','Full editor: the embedded VS Code–based code-server workspace.'];
+  let playing=false, start=0, timer, selected=0, manuallyPaused=false;
+  function label(index){selected=index;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));document.getElementById('editor-tour-caption').textContent=captions[index];}
+  function stop(index=selected){playing=false;clearInterval(timer);img.onload=null;img.src='assets/editors/'+frames[index]+'-fictional.png';img.alt=captions[index]+' Fictional demo files and code.';toggle.textContent='Play animation';toggle.setAttribute('aria-pressed','false');label(index);}
+  function play(){playing=true;label(0);toggle.textContent='Pause animation';toggle.setAttribute('aria-pressed','true');img.alt='Animated comparison of Simple, Monaco editor engine, and Full editor using fictional code.';img.onload=()=>{start=Date.now();clearInterval(timer);timer=setInterval(()=>label(Math.floor((Date.now()-start)/4000)%3),200);};img.src='assets/editors/editor-choices.gif?v=30&play='+Date.now();}
+  toggle.onclick=()=>{if(playing){manuallyPaused=true;stop();}else{manuallyPaused=false;play();}};
+  buttons.forEach(b=>b.onclick=()=>{manuallyPaused=true;stop(Number(b.dataset.editorFrame));});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)stop(0);else play();
+  matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{if(e.matches){manuallyPaused=true;stop();}});
+})();
+
 // All examples are local UI demonstrations; no microphone or agent requests.
 const castDefinitions={cat:{name:'Josie',description:'An orange tabby cat named Josie, with a cream muzzle, curious green eyes, and tall pointed ears.',change:'Give Josie a soft blue coat and a pink nose.',color:'#d58b43',changed:'#7b9cb1',ear:'#eab4a1'},dog:{name:'Peppie',description:'A blue heeler named Peppie, with upright ears, a pale muzzle, and a black patch surrounding her left eye (on the viewer’s right).',change:'Make one ear floppy and add a warm tan patch.',color:'#758a9d',changed:'#758a9d',ear:'#455b71'},frog:{name:'Chanticleer',description:'A bright green frog named Chanticleer, with big golden eyes, a pale belly, and a wide friendly smile.',change:'Give Chanticleer a tiny golden crown.',color:'#72a956',changed:'#72a956',ear:'#dbe6a2'}};
 castDefinitions.poppie={name:'Poppie',description:'Poppie, the black Australian shepherd from your Heeler cast: slightly raised ears with outward-folding tips, a narrow white blaze, tan eyebrows, and a pale muzzle.',change:'Preview Poppie’s focused expression with her outward-folding ears.'};
@@ -196,17 +211,3 @@ document.querySelectorAll('[data-editor-image]').forEach(button => button.addEve
   dialog.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>dialog.close()));
 })();
 
-(() => {
-  const stage=document.getElementById('editor-tour'), img=document.getElementById('editor-tour-image'), toggle=document.getElementById('editor-tour-play');
-  const buttons=[...document.querySelectorAll('[data-editor-frame]')];
-  const frames=['simple','monaco','full-editor'];
-  const captions=['Simple: a focused plain-text editor for quick changes.','Editor engine: Monaco syntax highlighting, line numbers, and a minimap.','Full editor: the embedded VS Code–based code-server workspace.'];
-  let playing=false, start=0, timer, selected=0, manuallyPaused=false;
-  function label(index){selected=index;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));document.getElementById('editor-tour-caption').textContent=captions[index];}
-  function stop(index=selected){playing=false;clearInterval(timer);img.onload=null;img.src='assets/editors/'+frames[index]+'-fictional.png';img.alt=captions[index]+' Fictional demo files and code.';toggle.textContent='Play animation';toggle.setAttribute('aria-pressed','false');label(index);}
-  function play(){playing=true;label(0);toggle.textContent='Pause animation';toggle.setAttribute('aria-pressed','true');img.alt='Animated comparison of Simple, Monaco editor engine, and Full editor using fictional code.';img.onload=()=>{start=Date.now();clearInterval(timer);timer=setInterval(()=>label(Math.floor((Date.now()-start)/4000)%3),200);};img.src='assets/editors/editor-choices.gif?play='+Date.now();}
-  toggle.onclick=()=>{if(playing){manuallyPaused=true;stop();}else{manuallyPaused=false;play();}};
-  buttons.forEach(b=>b.onclick=()=>{manuallyPaused=true;stop(Number(b.dataset.editorFrame));});
-  new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting){if(!manuallyPaused&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!playing)play();}else if(playing)stop();}},{threshold:0.1}).observe(stage);
-  matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{if(e.matches){manuallyPaused=true;stop();}});
-})();
