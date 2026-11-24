@@ -211,3 +211,5 @@ document.querySelectorAll('[data-editor-image]').forEach(button => button.addEve
   dialog.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>dialog.close()));
 })();
 
+
+(() => {const strip=document.getElementById('press'),button=document.getElementById('press-marquee-toggle');button.addEventListener('click',()=>{const paused=strip.classList.toggle('paused');button.setAttribute('aria-pressed',String(paused));button.textContent=paused?'Resume motion':'Pause motion';});})();
