@@ -62,3 +62,5 @@ body>header{position:relative;z-index:20;gap:18px;padding-left:28px;padding-righ
 .privacy-commitment{margin-top:28px;padding:28px 32px;background:#edf2e4;border:1px solid #c7d5b6;border-radius:12px}.privacy-commitment h3{margin-top:0}.privacy-commitment p{max-width:85ch}.privacy-commitment .fine{margin-bottom:0}
 
 .theme-zoom{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}.theme-zoom:focus-visible{outline:3px solid #6a8648;outline-offset:5px}#editor-tour{scroll-margin-top:110px}
+
+.recap-use-cases .handover-highlight{padding:28px;border:2px solid #789752;border-radius:12px;background:#eef4e4}.handover-highlight h3{font-size:28px}.handover-highlight .eyebrow{font-size:12px}#employee-continuity{scroll-margin-top:110px}
