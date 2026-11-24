@@ -72,3 +72,5 @@ body>header{position:relative;z-index:20;gap:18px;padding-left:28px;padding-righ
 .pod-included{list-style:none;padding:0;margin:4px 0 24px}.pod-included li{padding:14px 0;border-top:1px solid #839d684d}.pod-included b,.pod-included span{display:block;font-size:16px;line-height:1.5}.pod-included span{margin-top:3px}
 
 .cluster-examples{padding-left:22px;margin:20px 0}.cluster-examples li{margin:12px 0;line-height:1.6}
+
+.cloud-on-demand{border-top:1px solid #b8c9a5;margin-top:28px;padding-top:26px}.cloud-on-demand h3{font-size:28px}.cloud-on-demand p{max-width:85ch}
