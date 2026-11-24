@@ -70,3 +70,5 @@ body>header{position:relative;z-index:20;gap:18px;padding-left:28px;padding-righ
 .panelpod-team-pitch{display:grid;grid-template-columns:1.6fr 1fr;gap:42px;padding:36px;margin:40px 0;border:1px solid #69805b;border-radius:16px;background:#ffffff08}.panelpod-team-pitch h3{font-size:34px;line-height:1.18}.panelpod-price{display:flex;flex-direction:column;justify-content:center;padding:28px;background:#d7edb5;color:#203e30;border-radius:12px}.panelpod-price .eyebrow{color:#38502a}.panelpod-price>strong{font-size:72px;line-height:1.2;letter-spacing:-3px}.panelpod-price>p{font-size:20px;font-weight:600}.panelpod-price>span:last-child{font-size:16px}.panelpod-team-pitch .fine{color:#c1ccb7}@media(max-width:700px){.panelpod-team-pitch{grid-template-columns:1fr;padding:24px;gap:24px}.panelpod-team-pitch h3{font-size:28px}}
 
 .pod-included{list-style:none;padding:0;margin:4px 0 24px}.pod-included li{padding:14px 0;border-top:1px solid #839d684d}.pod-included b,.pod-included span{display:block;font-size:16px;line-height:1.5}.pod-included span{margin-top:3px}
+
+.cluster-examples{padding-left:22px;margin:20px 0}.cluster-examples li{margin:12px 0;line-height:1.6}
