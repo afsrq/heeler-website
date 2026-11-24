@@ -1,6 +1,6 @@
-# Heeler website
+# blueherd website
 
-Static marketing website for Heeler.
+Static marketing website for blueherd.
 
 Published with GitHub Pages from the main branch.
 

@@ -6,7 +6,7 @@
   let playing=false, start=0, timer, selected=0, manuallyPaused=false;
   function label(index){selected=index;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));document.getElementById('editor-tour-caption').textContent=captions[index];}
   function stop(index=selected){playing=false;clearInterval(timer);img.onload=null;img.src='assets/editors/'+frames[index]+'-fictional.png';img.alt=captions[index]+' Fictional demo files and code.';toggle.textContent='Play animation';toggle.setAttribute('aria-pressed','false');label(index);}
-  function play(){playing=true;label(0);toggle.textContent='Pause animation';toggle.setAttribute('aria-pressed','true');img.alt='Animated comparison of Simple, Monaco editor engine, and Full editor using fictional code.';img.onload=()=>{start=Date.now();clearInterval(timer);timer=setInterval(()=>label(Math.floor((Date.now()-start)/4000)%3),200);};img.src='assets/editors/editor-choices.gif?v=37';}
+  function play(){playing=true;label(0);toggle.textContent='Pause animation';toggle.setAttribute('aria-pressed','true');img.alt='Animated comparison of Simple, Monaco editor engine, and Full editor using fictional code.';img.onload=()=>{start=Date.now();clearInterval(timer);timer=setInterval(()=>label(Math.floor((Date.now()-start)/4000)%3),200);};img.src='assets/editors/editor-choices.gif?v=52';}
   toggle.onclick=()=>{if(playing){manuallyPaused=true;stop();}else{manuallyPaused=false;play();}};
   buttons.forEach(b=>b.onclick=()=>{manuallyPaused=true;stop(Number(b.dataset.editorFrame));});
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)stop(0);else play();
@@ -15,7 +15,7 @@
 
 // All examples are local UI demonstrations; no microphone or agent requests.
 const castDefinitions={cat:{name:'Josie',description:'An orange tabby cat named Josie, with a cream muzzle, curious green eyes, and tall pointed ears.',change:'Give Josie a soft blue coat and a pink nose.',color:'#d58b43',changed:'#7b9cb1',ear:'#eab4a1'},dog:{name:'Peppie',description:'A blue heeler named Peppie, with upright ears, a pale muzzle, and a black patch surrounding her left eye (on the viewer’s right).',change:'Make one ear floppy and add a warm tan patch.',color:'#758a9d',changed:'#758a9d',ear:'#455b71'},frog:{name:'Chanticleer',description:'A bright green frog named Chanticleer, with big golden eyes, a pale belly, and a wide friendly smile.',change:'Give Chanticleer a tiny golden crown.',color:'#72a956',changed:'#72a956',ear:'#dbe6a2'}};
-castDefinitions.poppie={name:'Poppie',description:'Poppie, the black Australian shepherd from your Heeler cast: slightly raised ears with outward-folding tips, a narrow white blaze, tan eyebrows, and a pale muzzle.',change:'Preview Poppie’s focused expression with her outward-folding ears.'};
+castDefinitions.poppie={name:'Poppie',description:'Poppie, the black Australian shepherd from your blueherd cast: slightly raised ears with outward-folding tips, a narrow white blaze, tan eyebrows, and a pale muzzle.',change:'Preview Poppie’s focused expression with her outward-folding ears.'};
 const castPresets={cat:{model:'Astra',effort:'High',note:'Josie’s example preset'},dog:{model:'Mythos',effort:'Medium',note:'Peppie’s example preset'},poppie:{model:'Claude Opus',effort:'High',note:'Poppie’s example preset'},frog:{model:'Gemini Flash',effort:'Agent default',note:'Artistic & creative. A Gemini Flash preset for brainstorming, visual concepts, and imaginative alternatives.'}};
 castDefinitions.julia={name:'Julia',description:'Josie’s rounder orange-tabby counterpart. A plush cream muzzle, a permanent scowl, and very little patience for fluff.',change:'Give Julia a slate-blue coat. Keep the attitude.',color:'#d58b43',changed:'#7b9cb1',ear:'#eab4a1'};
 castDefinitions.piper={name:'Piper',description:'Piper in the shared dog portrait style, preserving her blue coat, pale blaze, and brown muzzle. Chanticleer’s playful energy, with a lightweight OpenAI preset.',change:'Preview Piper’s focused working expression.'};
@@ -36,13 +36,13 @@ if(['pennie','poppie','piper'].includes(kind)){
  portrait=portrait.replace(/#[0-9a-f]{6}/g,color=>palette[color]||color);
  if(penny||poppy){
  const coat=penny?'#17191c':'#2b2a30',fold=penny?'#343439':'#0c0b0d',top=penny?5:7;
- const ears=`<g aria-label="Raised ears folding outward"><rect x="4" y="3" width="6" height="8" fill="#e6efdc"/><rect x="14" y="3" width="6" height="8" fill="#e6efdc"/><path d="M5 11V${top+1}H6V${top}H9V11Z M15 11V${top}H18V${top+1}H19V11Z" fill="${coat}"/><path d="M6 ${top}H4V${top+1}H3V${top+4}H5V${top+2}H7V${top+1}H6Z M18 ${top}H20V${top+1}H21V${top+4}H19V${top+2}H17V${top+1}H18Z" fill="${fold}"/></g>`;
+ const ears=`<g aria-label="Raised ears folding outward"><rect x="4" y="3" width="6" height="8" fill="#e2edf8"/><rect x="14" y="3" width="6" height="8" fill="#e2edf8"/><path d="M5 11V${top+1}H6V${top}H9V11Z M15 11V${top}H18V${top+1}H19V11Z" fill="${coat}"/><path d="M6 ${top}H4V${top+1}H3V${top+4}H5V${top+2}H7V${top+1}H6Z M18 ${top}H20V${top+1}H21V${top+4}H19V${top+2}H17V${top+1}H18Z" fill="${fold}"/></g>`;
  portrait=portrait.replace('</svg>',ears+'</svg>');
  }
  if(poppy)portrait=portrait.replace('</svg>','<g fill="#b5652b"><rect x="7" y="10" width="3" height="1"/><rect x="14" y="10" width="3" height="1"/></g></svg>');
  return portrait;
 }
-const d=castDefinitions[kind],c=changed?d.changed:d.color;let out=`<svg viewBox="0 0 24 24" role="img" aria-label="${d.name}, ${mood}${changed?', revised example':''}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">`;const r=(x,y,w,h,f)=>out+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"/>`;r(2,2,20,20,'#e6efdc');if(kind==='frog'){r(5,6,5,5,c);r(14,6,5,5,c);r(4,10,16,9,c);r(6,19,12,2,c);r(6,7,3,4,'#ead88b');r(15,7,3,4,'#ead88b');r(7,8,1,2,'#233d30');r(16,8,1,2,'#233d30');r(7,16,10,3,'#c1d591');if(changed){r(9,3,6,3,'#e6b344');r(8,2,2,2,'#e6b344');r(11,1,2,3,'#e6b344');r(14,2,2,2,'#e6b344')}}else{r(5,4,4,8,c);r(15,4,4,8,c);r(6,6,2,4,d.ear);r(16,6,2,4,d.ear);r(4,10,16,8,c);r(6,18,12,3,c);r(7,15,10,5,'#ece4ce');if(kind==='julia'){r(2,11,20,8,c);r(4,18,16,4,c);r(6,15,12,6,'#ece4ce')}if(kind==='cat'||kind==='julia'){r(11,10,2,3,'#9b663e');r(4,13,3,1,'#9b663e');r(17,13,3,1,'#9b663e');r(2,16,5,1,'#6d6e5b');r(17,16,5,1,'#6d6e5b')}else{r(10,10,4,6,'#cbd4da');if(changed){r(15,4,4,4,'#e6efdc');r(17,8,4,7,c);r(5,10,5,5,'#bf925b')}}if(kind==='dog'){r(13,10,6,7,'#17191c')}r(7,12,3,2,'#263b35');r(14,12,3,2,'#263b35');r(8,12,1,1,'#dbeea7');r(15,12,1,1,'#dbeea7');r(11,16,2,2,changed&&kind==='cat'?'#c77f8b':'#39473c')}
+const d=castDefinitions[kind],c=changed?d.changed:d.color;let out=`<svg viewBox="0 0 24 24" role="img" aria-label="${d.name}, ${mood}${changed?', revised example':''}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">`;const r=(x,y,w,h,f)=>out+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"/>`;r(2,2,20,20,'#e2edf8');if(kind==='frog'){r(5,6,5,5,c);r(14,6,5,5,c);r(4,10,16,9,c);r(6,19,12,2,c);r(6,7,3,4,'#ead88b');r(15,7,3,4,'#ead88b');r(7,8,1,2,'#233d30');r(16,8,1,2,'#233d30');r(7,16,10,3,'#c1d591');if(changed){r(9,3,6,3,'#e6b344');r(8,2,2,2,'#e6b344');r(11,1,2,3,'#e6b344');r(14,2,2,2,'#e6b344')}}else{r(5,4,4,8,c);r(15,4,4,8,c);r(6,6,2,4,d.ear);r(16,6,2,4,d.ear);r(4,10,16,8,c);r(6,18,12,3,c);r(7,15,10,5,'#ece4ce');if(kind==='julia'){r(2,11,20,8,c);r(4,18,16,4,c);r(6,15,12,6,'#ece4ce')}if(kind==='cat'||kind==='julia'){r(11,10,2,3,'#9b663e');r(4,13,3,1,'#9b663e');r(17,13,3,1,'#9b663e');r(2,16,5,1,'#6d6e5b');r(17,16,5,1,'#6d6e5b')}else{r(10,10,4,6,'#cbd4da');if(changed){r(15,4,4,4,'#e2edf8');r(17,8,4,7,c);r(5,10,5,5,'#bf925b')}}if(kind==='dog'){r(13,10,6,7,'#17191c')}r(7,12,3,2,'#263b35');r(14,12,3,2,'#263b35');r(8,12,1,1,'#dbeea7');r(15,12,1,1,'#dbeea7');r(11,16,2,2,changed&&kind==='cat'?'#c77f8b':'#39473c')}
 const mouthY=kind==='frog'?15:19;if(kind==='julia'){r(6,10,3,1,'#764a32');r(8,11,2,1,'#764a32');r(15,10,3,1,'#764a32');r(14,11,2,1,'#764a32');r(10,mouthY-1,4,1,'#334c36')}else if(mood==='working'){r(8,12,2,1,'#243d31');r(14,12,2,1,'#243d31');r(10,mouthY,4,1,'#334c36')}else if(mood==='waiting'){r(10,mouthY-1,4,1,'#334c36');r(9,mouthY,1,1,'#334c36');r(14,mouthY,1,1,'#334c36')}else{r(9,mouthY-1,1,1,'#334c36');r(10,mouthY,4,1,'#334c36');r(14,mouthY-1,1,1,'#334c36')}return out+'</svg>'}
 let selectedCast='cat',castChanged=false;function renderCast(){const d=castDefinitions[selectedCast];document.querySelector('#cast-description').textContent=d.description;document.querySelector('#cast-change-text').textContent=d.change;document.querySelector('#cast-name').textContent=d.name;document.querySelector('#cast-large').innerHTML=castSvg(selectedCast,castChanged);document.querySelector('#cast-status').textContent=castChanged?'Revised example · original preserved':'Illustrative cast portrait';const preset=castPresets[selectedCast];document.querySelector('#preset-model').textContent=preset.model;document.querySelector('#preset-effort').textContent=preset.effort;document.querySelector('#preset-personality').textContent=preset.note;document.querySelector('#preset-reply').textContent=preset.reply;document.querySelector('#preset-status').textContent=`${d.name} selected · ${preset.model} · ${preset.effort} effort. Demo only; no agent configuration is changed.`;document.querySelector('#cast-moods').innerHTML=['happy','working','waiting'].map(m=>`<div>${castSvg(selectedCast,castChanged,m)}<span>${m}</span></div>`).join('');document.querySelectorAll('[data-cast]').forEach(b=>{b.classList.toggle('selected',b.dataset.cast===selectedCast);b.setAttribute('aria-pressed',String(b.dataset.cast===selectedCast))})}
 document.querySelectorAll('[data-avatar]').forEach(x=>x.innerHTML=castSvg(x.dataset.avatar));document.querySelectorAll('[data-cast]').forEach(b=>b.onclick=()=>{selectedCast=b.dataset.cast;castChanged=false;renderCast()});document.querySelector('#cast-redraw').onclick=()=>{castChanged=true;renderCast()};document.querySelector('#cast-reset').onclick=()=>{castChanged=false;renderCast()};renderCast();
@@ -86,7 +86,7 @@ const marquee=document.querySelector('.brand-marquee'),marqueeToggle=document.qu
     }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1000);
   });
   $('approve-demo').onclick = () => {
-    $('plan-result').textContent = 'Go-ahead received for this example plan. In Heeler, this asks the agent to proceed; separate tool approvals still apply. This demo executes nothing.';
+    $('plan-result').textContent = 'Go-ahead received for this example plan. In blueherd, this asks the agent to proceed; separate tool approvals still apply. This demo executes nothing.';
   };
   $('reset-plan').onclick = () => {
     clearTimeout(revisionTimer); choices.hidden = true; thread.hidden = true;
@@ -136,7 +136,7 @@ const marquee=document.querySelector('.brand-marquee'),marqueeToggle=document.qu
   document.addEventListener('click', event => { if (!event.target.closest('.prompt-menu-anchor')) close(); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && !menu.hidden) { close(); toggle.focus(); } });
   document.getElementById('prompt-send-demo').onclick = () => {
-    document.getElementById('prompt-status').textContent = document.getElementById('prompt-compose').value.trim() ? 'Demo message submitted. In Heeler, Send passes your instruction to the selected agent. This website does not send an AI request.' : 'Pick a saved prompt or type a message first.';
+    document.getElementById('prompt-status').textContent = document.getElementById('prompt-compose').value.trim() ? 'Demo message submitted. In blueherd, Send passes your instruction to the selected agent. This website does not send an AI request.' : 'Pick a saved prompt or type a message first.';
   };
 })();
 
@@ -155,15 +155,15 @@ const marquee=document.querySelector('.brand-marquee'),marqueeToggle=document.qu
 
 // Keep generated feature copy and changing demo responses branded, too.
 (() => {
-  const excluded = 'script,style,textarea,input,pre,code,svg,.heeler-wordmark';
+  const excluded = 'script,style,textarea,input,pre,code,svg,.blueherd-wordmark';
   function brandText(node) {
-    if (!node.parentElement || node.parentElement.closest(excluded) || !/\bheeler\b/i.test(node.nodeValue)) return;
-    const parts = node.nodeValue.split(/(\bheeler\b)/gi);
+    if (!node.parentElement || node.parentElement.closest(excluded) || !/\bblueherd\b/i.test(node.nodeValue)) return;
+    const parts = node.nodeValue.split(/(\bblueherd\b)/gi);
     const fragment = document.createDocumentFragment();
     parts.forEach(part => {
-      if (/^heeler$/i.test(part)) {
+      if (/^blueherd$/i.test(part)) {
         const logo = document.createElement('span');
-        logo.className = 'heeler-wordmark'; logo.setAttribute('aria-label','Heeler'); logo.textContent = 'heeler'; fragment.append(logo);
+        logo.className = 'blueherd-wordmark'; logo.setAttribute('aria-label','blueherd'); logo.textContent = 'blueherd'; fragment.append(logo);
       } else fragment.append(document.createTextNode(part));
     });
     node.replaceWith(fragment);
