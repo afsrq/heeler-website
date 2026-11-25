@@ -6,7 +6,7 @@
   let playing=false, start=0, timer, selected=0, manuallyPaused=false;
   function label(index){selected=index;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));document.getElementById('editor-tour-caption').textContent=captions[index];}
   function stop(index=selected){playing=false;clearInterval(timer);img.onload=null;img.src='assets/editors/'+frames[index]+'-fictional.png';img.alt=captions[index]+' Fictional demo files and code.';toggle.textContent='Play animation';toggle.setAttribute('aria-pressed','false');label(index);}
-  function play(){playing=true;label(0);toggle.textContent='Pause animation';toggle.setAttribute('aria-pressed','true');img.alt='Animated comparison of Simple, Monaco editor engine, and Full editor using fictional code.';img.onload=()=>{start=Date.now();clearInterval(timer);timer=setInterval(()=>label(Math.floor((Date.now()-start)/4000)%3),200);};img.src='assets/editors/editor-choices.gif?v=61';}
+  function play(){playing=true;label(0);toggle.textContent='Pause animation';toggle.setAttribute('aria-pressed','true');img.alt='Animated comparison of Simple, Monaco editor engine, and Full editor using fictional code.';img.onload=()=>{start=Date.now();clearInterval(timer);timer=setInterval(()=>label(Math.floor((Date.now()-start)/4000)%3),200);};img.src='assets/editors/editor-choices.gif?v=62';}
   toggle.onclick=()=>{if(playing){manuallyPaused=true;stop();}else{manuallyPaused=false;play();}};
   buttons.forEach(b=>b.onclick=()=>{manuallyPaused=true;stop(Number(b.dataset.editorFrame));});
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)stop(0);else play();
@@ -96,14 +96,14 @@ const marquee=document.querySelector('.brand-marquee'),marqueeToggle=document.qu
   };
   $('pass-demo').onclick = () => { $('pass-target').hidden = !$('pass-target').hidden; $('pass-demo').setAttribute('aria-expanded', String(!$('pass-target').hidden)); };
   $('pass-select').onclick = () => {
-    $('pass-compose').value = 'From Claude, in “Notes app / design”:\n\nSave edits on the device first. Queue changes for sync when the connection returns, and let the user resolve conflicts.\n\nPlease suggest an implementation plan and tests for this approach.';
+    $('pass-compose').value = 'From Claude Fable, in “blueherd development”:\n\nThe software is ready. I recommend creating a website that explains how blueherd brings agents and projects together, demonstrates its safety and team controls, and gives people a clear reason to try it.\n\nBuild me a website from this. Make it polished, detailed, and easy for both individual developers and companies to understand.';
     $('pass-target').hidden = true; $('pass-demo').setAttribute('aria-expanded','false');
     $('pass-response').textContent = 'Reply placed in the composer. Edit it or send this demo message.';
     $('pass-send').disabled = false; $('pass-compose').focus();
   };
   $('pass-compose').oninput = () => { $('pass-send').disabled = !$('pass-compose').value.trim(); };
   $('pass-send').onclick = () => {
-    $('pass-response').textContent = 'Illustrative Codex reply: I’d start with local storage and a sync queue, then test offline edits, retries, and conflicts. Let’s agree on the data model before implementing.';
+    $('pass-response').textContent = 'Illustrative Astra reply: I’ll turn Fable’s product recommendation into a complete website plan, then build the page around the Herd, Explain first, team oversight, privacy choices, editors, and the features buyers will want explained. I’ll keep the demo content fictional and make the experience work on desktop and mobile.';
     $('pass-send').disabled = true;
   };
   const prompts = {
