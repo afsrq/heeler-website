@@ -1,5 +1,6 @@
 (() => {
   const undoButton=document.querySelector('#undo-turn-demo');if(undoButton){undoButton.addEventListener('click',()=>{const demo=undoButton.closest('.snapshot-demo');if(demo.classList.contains('is-undone')){demo.classList.remove('is-undone');undoButton.textContent='Undo everything the agent just did';return}demo.classList.add('is-undoing');undoButton.disabled=true;setTimeout(()=>{demo.classList.remove('is-undoing');demo.classList.add('is-undone');undoButton.disabled=false;undoButton.textContent='Show it again'},matchMedia('(prefers-reduced-motion: reduce)').matches?0:720)})}
+  const restartStatus=document.querySelector('#restart-warning-status');document.querySelector('#keep-working-demo')?.addEventListener('click',()=>{restartStatus.textContent='Restart canceled. Astra and Fable keep working.'});document.querySelector('#restart-anyway-demo')?.addEventListener('click',()=>{restartStatus.textContent='Demo only: blueherd would ask for final confirmation before proceeding.'});
   const stage=document.getElementById('editor-tour'), img=document.getElementById('editor-tour-image'), toggle=document.getElementById('editor-tour-play');
   const buttons=[...document.querySelectorAll('[data-editor-frame]')];
   const frames=['simple','monaco','full-editor'];
@@ -7,7 +8,7 @@
   let playing=false, start=0, timer, selected=0, manuallyPaused=false;
   function label(index){selected=index;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));document.getElementById('editor-tour-caption').textContent=captions[index];}
   function stop(index=selected){playing=false;clearInterval(timer);img.onload=null;img.src='assets/editors/'+frames[index]+'-fictional.png';img.alt=captions[index]+' Fictional demo files and code.';toggle.textContent='Play animation';toggle.setAttribute('aria-pressed','false');label(index);}
-  function play(){playing=true;label(0);toggle.textContent='Pause animation';toggle.setAttribute('aria-pressed','true');img.alt='Animated comparison of Simple, Monaco editor engine, and Full editor using fictional code.';img.onload=()=>{start=Date.now();clearInterval(timer);timer=setInterval(()=>label(Math.floor((Date.now()-start)/4000)%3),200);};img.src='assets/editors/editor-choices.gif?v=67';}
+  function play(){playing=true;label(0);toggle.textContent='Pause animation';toggle.setAttribute('aria-pressed','true');img.alt='Animated comparison of Simple, Monaco editor engine, and Full editor using fictional code.';img.onload=()=>{start=Date.now();clearInterval(timer);timer=setInterval(()=>label(Math.floor((Date.now()-start)/4000)%3),200);};img.src='assets/editors/editor-choices.gif?v=68';}
   toggle.onclick=()=>{if(playing){manuallyPaused=true;stop();}else{manuallyPaused=false;play();}};
   buttons.forEach(b=>b.onclick=()=>{manuallyPaused=true;stop(Number(b.dataset.editorFrame));});
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)stop(0);else play();
