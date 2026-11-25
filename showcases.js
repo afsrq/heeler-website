@@ -8,7 +8,7 @@
   let playing=false, start=0, timer, selected=0, manuallyPaused=false;
   function label(index){selected=index;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));document.getElementById('editor-tour-caption').textContent=captions[index];}
   function stop(index=selected){playing=false;clearInterval(timer);img.onload=null;img.src='assets/editors/'+frames[index]+'-fictional.png';img.alt=captions[index]+' Fictional demo files and code.';toggle.textContent='Play animation';toggle.setAttribute('aria-pressed','false');label(index);}
-  function play(){playing=true;label(0);toggle.textContent='Pause animation';toggle.setAttribute('aria-pressed','true');img.alt='Animated comparison of Simple, Monaco editor engine, and Full editor using fictional code.';img.onload=()=>{start=Date.now();clearInterval(timer);timer=setInterval(()=>label(Math.floor((Date.now()-start)/4000)%3),200);};img.src='assets/editors/editor-choices.gif?v=68';}
+  function play(){playing=true;label(0);toggle.textContent='Pause animation';toggle.setAttribute('aria-pressed','true');img.alt='Animated comparison of Simple, Monaco editor engine, and Full editor using fictional code.';img.onload=()=>{start=Date.now();clearInterval(timer);timer=setInterval(()=>label(Math.floor((Date.now()-start)/4000)%3),200);};img.src='assets/editors/editor-choices.gif?v=69';}
   toggle.onclick=()=>{if(playing){manuallyPaused=true;stop();}else{manuallyPaused=false;play();}};
   buttons.forEach(b=>b.onclick=()=>{manuallyPaused=true;stop(Number(b.dataset.editorFrame));});
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)stop(0);else play();
